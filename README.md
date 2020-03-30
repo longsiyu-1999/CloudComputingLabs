@@ -2,6 +2,9 @@
 
 <!--**This is the repo containing all the lab materials for undergraduate course CS06142 "Cloud Computing Techniques" at Hunan University**--> 
 ## "这是陈果老师云计算实验库——铁血菜狗队"
+队长：龙思宇
+
+成员：刘梦迪 高文静 吕喆
 ## 1. Overview
 
 There are **4 labs in total** in this course. All the materials of each lab are under folders Lab1-4 in this repo. Please clone the lab git repo onto your local computer,
