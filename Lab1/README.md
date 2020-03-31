@@ -1,3 +1,4 @@
+#### Lab1最终实验成果目录→CloudComputingLabs/Lab1
 # Lab 1: “Super-fast” Sudoku Solving
 
 Enter in the folder you have cloned from our lab git repo, and pull the latest commit. 
