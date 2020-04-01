@@ -1,28 +1,30 @@
 #### Lab1最终实验成果保存路径→CloudComputingLabs/Lab1
-# Lab 1: “Super-fast” Sudoku Solving
 
-Enter in the folder you have cloned from our lab git repo, and pull the latest commit. 
+# Lab 1: “超高速”数独解题
+
+进入实验git资源库克隆的文件夹，并提取最新提交的资源。 
 
 `git pull`
 
-You can find this lab1's instruction in `Lab1/README.md` 
+您可以在lab1/readme.md中找到本实验1的说明。
 
-All materials of lab1 are in folder `Lab1/`
+lab1的所有材料都在lab1/文件夹中。
 
-## 1. Overview
+## 1. 1.	概述
 
-Implement a Sudoku solving program, using multiple threads or multiple processes, running on a single machine. Try to **utilize all your CPU cores** and make your program **run as fast as possible**! 
+使用多个线程或多个进程，在一台机器上运行，实现数独解算程序。
+试着利用你所有的CPU核心，让你的程序尽可能快地运行！
 
-### Goals
+### 实验目的：
 
-* Practice basic parallel programming skills, such as using multiple threads/processes;
-* Get familiar with Unix OS environment development (eg., file I/O, get timestamp);
-* Get familiar with source code version control tools (git), and learn to collaborate with others using github;
-* Practice how to do performance test and write a high-quality performance test report.
+* 练习基本的并行编程技能，例如使用多线程/进程。
+* 熟悉Unix操作系统环境开发(如文件I/O、获取时间戳)。
+* 熟悉源代码版本控制工具(GIT)，学会使用GitHub与他人协作。
+* 练习如何进行性能测试，并撰写高质量的性能测试报告。
 
-## 2. Background
+## 2. 背景
 
-### 2.1 Introduction to Sudoku
+### 2.1 ①.	数独介绍
 
 Sudoku (originally called Number Place) is a logic-based combinatorial number-placement puzzle. 
 
@@ -37,21 +39,21 @@ You are given a 9×9 board of 81 squares logically separated into 9 columsn, 9 r
 
 <img src="src/Sudoku_answer.png" alt="Sudoku" title="Sudoku answer" style="zoom:67%;" />
 
-### 2.2 Some useful resources
+### 2.2 可用资源
 
 If you have no idea about what algorithms can be used to solve Sudoku puzzles, we suggest you read [this](https://rafal.io/posts/solving-sudoku-with-dancing-links.html). To simplify your work, we have provided a simple [implementation](src/Sudoku/) `(Lab1/src/Sudoku`) of 4 Sudoku solving algorithms (some are slow, some are fast), but without using multiple threads/processes. The two files *test1* and *test1000* contain many puzzles for you to test. 
 
 Of course, you are always encouraged (not mandatory) to implement those algorithms by yourselves and even your own algorithms (if you have time).
 
-## 3. Your Lab Task
+## 3. 3.	实验任务
 
-### 3.1 Write a program 
+### 3.1 写一个程序 
 
 Implement a program which satisfies the following requirements:
 
-#### 3.1.1 Program input and output
+#### 3.1.1 程序输入和输出
 
-##### **3.1.1.1 Input** 
+##### **3.1.1.1 输入** 
 
 1. Your program should have no arguments during start. For example, if your program is called *sudoku_solve*,  just typing `./sudoku_solve` and your program will run correctly.
 2. But after start, your program should be able to read multiple strings from ***stdin***, where each string is separated by a line-break. Each string is a **name of a file**, which contains one or more Sudoku puzzles that your program is going to solve. 
@@ -82,7 +84,7 @@ The first Sudoku puzzle problem (first line) actually looks like this when being
 0 2 0 | 7 0 6 | 0 9 0
 ---------------------
 ```
-##### 3.1.1.2 Output
+##### 3.1.1.2 输出
 
 1. You should calculate the solutions of all the Sudoku puzzles in all the input files, and output these solutions into ***stdout***.
 2. The solutions should be outputed **in the same sequence** as the puzzles are inputted in. For example, if  there are two input files and the first input file contains 2 puzzles, then, the 1st output solution should be of the 1st puzzle in the first input file, and the 2nd output solution should be of the 2nd puzzle in the first input file, and the 3rd output solution should be of the 1st puzzle in the second input file, and so on.
@@ -113,45 +115,54 @@ and the 2nd line in the output is the solution to puzzle
 and the 3rd line in the output is the solution to puzzle
 000000013000030080070000000000206000030000900000010000600500204000400700100000000
 ```
-#### 3.1.3 Implementation requirements 
+#### 3.1.3 分级要求 
 
-##### 3.1.3.1 Basic version
-
-Your program should be able to: 
-
-1. Accept **one** input file name, and the size of the input file is smaller than 100MB. 
-2. Successfully solve the puzzles in the input file, and output the results in the format described before.
-3. Use multiple threads/processes to make use of most of your machine's CPU cores.
-
-\[Tips\]: 1) Use event queue to dispatch tasks and merge results to/from worker threads. 2) Dynamically detect how many CPU cores are there on your machine, in order to decide how many threads/processes your program uses. 3) Be careful about the contention among multiple threads/processes
-
-##### 3.1.3.2 Advanced version
+##### 3.1.3.1 基础版
 
 Your program should be able to: 
 
-1. Complete all the requirements in the basic version.
-2. Accept **any number of** input file names, and the size of input file can be **any large** (as long as it can be stored on your disk)
-3. When the program is solving puzzles in the previously input file(s), the program can **meanwhile accept more input file names from *stdin***.
+1. 接受 **一个** 输入文件名，并且输入文件大小小于100MB。
+2. 成功解出输入文件要求的数独题，并将结果按要求输出。
+3. 使用多线程/进程来利用您机器的大部分CPU内核。
 
-\[Tips\]: 1) Use a dedicated thread to accept input; 2) To avoid consuming all the memory, read different parts of the file into memory and solve them one by one; 3) You are encouraged to try more optimizations such as cache coherency processing.
+\[Tips\]: 1) 1．	使用事件队列将任务分派到工作线程，并将结果合并到工作线程或从工作线程合并结果. 2) 动态检测您的计算机上有多少个CPU核心，以便确定您的程序使用了多少线程/进程. 3) 注意多线程/进程之间的争用问题.
 
-### 3.2. Finish a performance test report
+##### 3.1.3.2 进阶版
 
-Please test your code first, and commit a test report along with your lab code into your group’s course github repo. 
+Your program should be able to: 
 
-The test report should describe your test inputs, and the performance result under various testing conditions. Specifically, in your test report, you should at least contain the following two things:
+1. 完成基础版的所有要求。
+2. 接受 **任意数量的输入文件名**，输入文件的大小可以是 **任意大小**(只要可以存储在您的磁盘上)。
+3. 当程序在解决先前输入文件中的谜题时，**程序可以同时接受来自 *stdin*** 的更多输入文件名。
 
-1. Compare the performance of your “super-fast” Sudoku solving program with a simple single-thread version, using the same input and under the same environment.
-2. Change the input (e.g., change file size) and environment (e.g., using machines with different CPUs and hard drives), and draw several curves of your program’s performance under various conditions.
+\[Tips\]: 1) 使用专用线程接受输入; 2) 为避免占用全部内存，将文件的不同部分读入内存，逐一求解; 3) 3．	尝试更多优化，如缓存一致性处理.
 
-## 4. Lab submission
+### 3.2. 完成性能测试报告
 
-Please put all your code in folder `Lab1` and write a `Makefile` so that we **can compile your code in one single command** `make`. The compiled runnable executable binary should be named `sudoku_solve` and located in folder `Lab1`. If you do not know how to write `Makefile`, you can find a simple example in `Lab1/src/Sudoku`. Please carefully following above rules so that TAs can automatically test your code!!!
+请先测试您的代码，并将测试报告和实验代码一起提交到小组的课程GitHub Repo中。
 
-Please submit your lab program and performance test report following the guidance in the [Overall Lab Instructions](../README.md) (`../README.md`)
+测试报告应该描述测试输入，以及在各种测试条件下的性能结果。
+具体至少应该包含以下两点：
 
-## 5. Grading standards
+1. 在相同的输入、相同的环境下，将您的超快数独解算程序与简单的单线程解算程序进行性能对比。
+2. 更改输入(例如，更改文件大小)和环境(例如，使用不同CPU和硬盘的机器)，并绘制程序在各种条件下的性能曲线。
 
-1. You can get 38 points if you can: 1) finish all the requirements of the basic version, and 2) your performance test report has finished the two requirements described before. If you missed some parts, you will get part of the points depending how much you finished
-2. You can get 40 points (full score) if you can: 1) finish all the requirements of the advanced version, and 2) your performance test report has finished the two requirements described before. If you missed some parts, you will get part of the points depending how much you finished.
+## 4. 实验提交
 
+请将您的所有代码放在文件夹Lab1中，并编写一个Makefile，这样我们就可以在一个命令make中编译您的代码。
+编译后的可运行可执行二进制文件应该命名为sudoku_solve，并位于文件夹Lab1中。
+如果您不知道如何编写Makefile，可以在lab1/src/Sudoku中找到一个简单的示例。
+请仔细遵循以上规则，以便助教自动测试您的代码！
+
+
+请按照总体实验说明(../readme.md)中的指导提交您的实验计划和性能测试报告
+
+## 5. 评分标准
+
+1. 38分标准：
+* 完成基础版的所有要求。
+* 您的性能测试报告已经完成了前面描述的两个要求。如果你错过了一些部分，你只会得到部分分，取决于完成度。
+
+2. 40分（满分）标准：
+* 完成高级版的所有要求。
+* 您的性能测试报告已经完成了前面描述的两个要求。如果你错过了一些部分，你会得到一部分分，取决于完成度。
